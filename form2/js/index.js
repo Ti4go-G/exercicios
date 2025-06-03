@@ -1,7 +1,7 @@
 
 class ValidaForm {
     constructor() {
-        this.form = document.querySelector('.form')
+        this.form = document.querySelector('.form');
         this.events();
     }
     events() {
@@ -15,13 +15,20 @@ class ValidaForm {
         const validPassword = this.checkPassword();
     }
     checkPassword() {
-        const password = document.getElementById('password')
-        const passwordRepeat = document.getElementById('password-repeat')
-        isValid = true;
-        if(password.value.length < 6 || password.value.length > 12){
-            this.createError(password, `A senha precisa ter entre 6 e 12 caracteres`)
-            isValid = false
+        const password = document.getElementById('password');
+        const passwordRepeat = document.getElementById('password-repeat');
+        let isValid = true;
+        if (password.value !== passwordRepeat.value) {
+            this.createError(password, `As senhas precisam ser iguais`);
+            this.createError(passwordRepeat, `As senhas precisam ser iguais`);
+            isValid = false;
         }
+        if (password.value.length < 6 || password.value.length > 12) {
+            this.createError(password, `A senha precisa ter entre 6 e 12 caracteres`);
+            isValid = false;
+        }
+
+        return isValid
     }
     checkFields() {
         let isValid = true;
@@ -51,16 +58,16 @@ class ValidaForm {
             isValid = false;
         }
         if (!user.match(/^[a-zA-Z0-9]+$/g)) {
-            this.criaErro(field, 'Nome de usuário precisar conter apenas letras e/ou números.');
+            this.createError(field, 'Nome de usuário precisar conter apenas letras e/ou números.');
             isValid = false;
         }
         return isValid
     }
     createError(field, msg) {
         const div = document.createElement('div');
-        div.innerHTML = msg
-        div.classList.add('error-text')
-        field.insertAdjacentElement('afterend', div)
+        div.innerHTML = msg;
+        div.classList.add('error-text');
+        field.insertAdjacentElement('afterend', div);
     }
 
 }
