@@ -1,5 +1,4 @@
-
-class ValidaForm {
+class FormValidator {
     constructor() {
         this.form = document.querySelector('.form');
         this.events();
@@ -30,6 +29,14 @@ class ValidaForm {
 
         return isValid
     }
+    checkCpf(field){
+        const validateCpf = new CPFValidator(field.value)
+        if(!validateCpf.isValid()){
+            this.createError(field, `O CPF é inválido, digite um cpf válido`)
+            return false
+        }
+        return true
+    }
     checkFields() {
         let isValid = true;
         for (let error of this.form.querySelectorAll('.error-text')) {
@@ -41,8 +48,8 @@ class ValidaForm {
                 this.createError(field, `O campo ${label} não pode estar em branco`);
                 isValid = false;
             }
-            if (field.id === 'cpf') {
-
+            if (field.id === 'cpf' && !this.checkCpf(field)) {
+                isValid = false;
             }
             if (field.id === 'user' && !this.validateUser(field)) {
                 isValid = false;
@@ -72,4 +79,4 @@ class ValidaForm {
 
 }
 
-const valida = new ValidaForm();
+const valida = new FormValidator();
