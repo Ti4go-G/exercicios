@@ -12,6 +12,14 @@ class FormValidator {
         e.preventDefault();
         const validFields = this.checkFields();
         const validPassword = this.checkPassword();
+        const formData = new FormData(e.target);
+        const users = {};
+        if(validFields && validPassword){
+            formData.forEach((value, key)=> users[key] = value)
+            localStorage.setItem("formData", JSON.stringify(users))
+            e.target.submit()
+            alert("Usuário cadastrado com sucesso")
+        }
     }
     checkPassword() {
         const password = document.getElementById('password');
@@ -55,6 +63,7 @@ class FormValidator {
                 isValid = false;
             }
         }
+        return isValid
     }
     validateUser(field) {
         const user = field.value;
