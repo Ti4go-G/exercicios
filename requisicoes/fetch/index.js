@@ -61,3 +61,39 @@ async function updatePostTitle(id, title) {
     }
 }
 updatePostTitle(1, {title:"titulo alterado com patch"})
+
+async function updatePost({userId, id, title, body }) {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+            method:'PUT',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            userId: userId,
+            id: id,
+            title: title,
+            body: body
+          })
+        })
+        const data = await response.json()
+        console.log('post atualizado com sucesso')
+        
+    } catch (error) {
+        console.error('Erro ao alterar post:', error)
+    }
+}
+async function deletePost(id) {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+            method: 'DELETE'
+        })
+        if (!response.ok) {
+        throw new Error(`Erro ao deletar post: ${response.status}`);
+    }
+
+    } catch (error) {
+        console.error(error)
+    }
+    
+}
