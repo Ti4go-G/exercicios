@@ -6,14 +6,17 @@
 /*
 ****EXERCÍCIO COM FETCH(POST, GET, PATCH, PUT, DELETE)
 */
-async function criarPost(post) {
+async function criarPost({title, body}) {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(post)
+            body: JSON.stringify({
+                title: title,
+                body: body
+            })
         })
         const data = await response.json()
         console.log('post criado com sucesso', data)
