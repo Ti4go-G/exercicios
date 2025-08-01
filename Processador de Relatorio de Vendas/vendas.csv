@@ -1,0 +1,9 @@
+ID,Produto,Quantidade,PrecoUnitario,Status
+1,Laptop,10,2500.00,Concluída
+2,Mouse,50,75.50,Concluída
+3,Teclado,30,120.00,Cancelada
+4,Monitor,20,950.00,Concluída
+5,Webcam,40,250.00,Pendente
+6,Laptop,5,2450.00,Concluída
+7,Mouse,15,75.50,Cancelada
+8,Headset,25,350.00,Concluída
