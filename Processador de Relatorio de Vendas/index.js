@@ -1,8 +1,11 @@
 const fs = require('fs').promises
 const path = require('path')
 
+let cachedData = null
 async function convertFile(filePath) {
+    if (cachedData) return cachedData
     try {
+
         const fileContent = await fs.readFile(filePath, "utf-8")
         const data = fileContent.split(/\r?\n/)
         const [header, ...lines] = data;
@@ -17,21 +20,30 @@ async function convertFile(filePath) {
             product.Quantidade = parseInt(product.Quantidade) || 0;
             product.PrecoUnitario = parseFloat(product.PrecoUnitario) || 0.0;
             return product
-        }).filter(item => item!==null)
-        console.log(prodArr)
-        return prodArr
-        
+        }).filter(item => item !== null)
+        // console.log(prodArr)
+        cachedData = prodArr
+        return cachedData
+
     } catch (error) {
 
     }
 
 }
-async function totalSales(){
+
+async function totalSales() {
     const data = await convertFile("vendas.csv")
-    const total = data.reduce((acc, item)=> acc +(item.Quantidade * item.PrecoUnitario),0)
+    const total = data.reduce((acc, item) => acc + (item.Quantidade * item.PrecoUnitario), 0)
     return total
 }
-convertFile("vendas.csv").then(res=>{
-    console.log(res)
-})
-totalValue().then(res=>console.log(res))
+async function getCompletedSales(){
+    const data = await convertFile("vendas.csv")
+    const completedSales = data.filter((item)=> item.Status.toLowerCase() === "concluída")
+    return completedSales
+
+}
+// convertFile("vendas.csv").then(res => {
+//     console.log(res)
+// })
+totalSales().then(res => console.log(res))
+getCompletedSales().then(res=>console.log(res))
