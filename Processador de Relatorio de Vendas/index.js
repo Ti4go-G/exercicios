@@ -42,8 +42,17 @@ async function getCompletedSales(){
     return completedSales
 
 }
+async function bestSelling() {
+ 
+  const completedSales = await getCompletedSales()
+  const prodBestSelling = completedSales.reduce((acc, item) =>  item.Quantidade > acc.Quantidade ? item : acc, completedSales[0]);
+
+  return prodBestSelling;
+}
+
 // convertFile("vendas.csv").then(res => {
 //     console.log(res)
 // })
-totalSales().then(res => console.log(res))
-getCompletedSales().then(res=>console.log(res))
+// totalSales().then(res => console.log(res))
+// getCompletedSales().then(res=>console.log(res))
+bestSelling().then(res => console.log(res))
