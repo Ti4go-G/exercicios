@@ -31,28 +31,32 @@ async function convertFile(filePath) {
 
 }
 
-async function totalSales() {
+async function getTotalSales() {
     const data = await convertFile("vendas.csv")
     const total = data.reduce((acc, item) => acc + (item.Quantidade * item.PrecoUnitario), 0)
     return total
 }
-async function getCompletedSales(){
+async function getCompletedSales() {
     const data = await convertFile("vendas.csv")
-    const completedSales = data.filter((item)=> item.Status.toLowerCase() === "concluída")
+    const completedSales = data.filter((item) => item.Status.toLowerCase() === "concluída")
     return completedSales
 
 }
-async function bestSelling() {
- 
-  const completedSales = await getCompletedSales()
-  const prodBestSelling = completedSales.reduce((acc, item) =>  item.Quantidade > acc.Quantidade ? item : acc, completedSales[0]);
-
-  return prodBestSelling;
+async function getTotalCompleted(){
+    const data = await getCompletedSales()
+    const total = data.reduce((acc, item)=> acc+(item.Quantidade * item.PrecoUnitario), 0)
+    return total
+    
 }
 
-// convertFile("vendas.csv").then(res => {
-//     console.log(res)
-// })
-// totalSales().then(res => console.log(res))
-// getCompletedSales().then(res=>console.log(res))
-bestSelling().then(res => console.log(res))
+async function getBestSelling() {
+
+    const completedSales = await getCompletedSales()
+    const prodBestSelling = completedSales.reduce((acc, item) => item.Quantidade > acc.Quantidade ? item : acc, completedSales[0]);
+
+    return prodBestSelling;
+}
+
+
+
+createRelatorio()
