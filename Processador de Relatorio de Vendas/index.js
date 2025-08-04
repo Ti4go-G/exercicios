@@ -42,11 +42,11 @@ async function getCompletedSales() {
     return completedSales
 
 }
-async function getTotalCompleted(){
+async function getTotalCompleted() {
     const data = await getCompletedSales()
-    const total = data.reduce((acc, item)=> acc+(item.Quantidade * item.PrecoUnitario), 0)
+    const total = data.reduce((acc, item) => acc + (item.Quantidade * item.PrecoUnitario), 0)
     return total
-    
+
 }
 
 async function getBestSelling() {
@@ -58,5 +58,51 @@ async function getBestSelling() {
 }
 
 
+async function saveFile(content) {
+    try {
+        await fs.writeFile('relatorio.txt', content, 'utf-8');
+        console.log('Arquivo salvo com sucesso!');
+    } catch (err) {
+        console.error('Erro ao salvar:', err);
+    }
+}
 
-createRelatorio()
+async function createReport() {
+    const now = new Date()
+    const dataFormatada = now.toLocaleString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    })
+    const pathFolder = path.resolve(__dirname)
+    const totalSales = await getTotalSales()
+    const completedSales = await getTotalCompleted()
+    const bestSelling = await getBestSelling()
+    const content = `
+=====================================
+  RELATÓRIO DE VENDAS CONSOLIDADO
+=====================================
+
+Data de Geração: ${dataFormatada}
+
+--- RESUMO GERAL ---
+
+- Valor Total Bruto: R$ ${totalSales.toFixed(2).replace('.', ',')}
+- Valor Total Líquido (Vendas Concluídas): R$ ${completedSales.toFixed(2).replace('.', ',')}
+
+--- DESTAQUES ---
+
+- Produto Mais Vendido (em quantidade): ${bestSelling.Produto}
+- Unidades Vendidas do Produto Destaque: ${bestSelling.Quantidade}
+
+-------------------------------------
+  Relatório gerado automaticamente.
+-------------------------------------`
+    saveFile(content)
+
+
+}
+createReport()

@@ -1,0 +1,20 @@
+
+=====================================
+  RELATÓRIO DE VENDAS CONSOLIDADO
+=====================================
+
+Data de Geração: 04/08/2025, 17:12:20
+
+--- RESUMO GERAL ---
+
+- Valor Total Bruto: R$ 83507,50
+- Valor Total Líquido (Vendas Concluídas): R$ 68775,00
+
+--- DESTAQUES ---
+
+- Produto Mais Vendido (em quantidade): Mouse
+- Unidades Vendidas do Produto Destaque: 50
+
+-------------------------------------
+  Relatório gerado automaticamente.
+-------------------------------------
