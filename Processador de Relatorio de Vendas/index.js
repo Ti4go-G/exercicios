@@ -58,9 +58,9 @@ async function getBestSelling() {
 }
 
 
-async function saveFile(content) {
+async function saveFile(fileName, content) {
     try {
-        await fs.writeFile('relatorio.txt', content, 'utf-8');
+        await fs.writeFile(fileName, content, 'utf-8');
         console.log('Arquivo salvo com sucesso!');
     } catch (err) {
         console.error('Erro ao salvar:', err);
@@ -69,6 +69,7 @@ async function saveFile(content) {
 
 async function createReport() {
     const now = new Date()
+    const fileName = 'relatorio.txt'
     const dataFormatada = now.toLocaleString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
@@ -101,8 +102,16 @@ Data de Geração: ${dataFormatada}
 -------------------------------------
   Relatório gerado automaticamente.
 -------------------------------------`
-    saveFile(content)
+    saveFile(fileName, content)
+    saveData()
 
 
+}
+
+async function saveData(){
+    const data = await getCompletedSales()
+    const fileName = 'vendas_concluidas.json'
+    const productJson = JSON.stringify(data, null, 2)
+    await fs.writeFile(fileName, productJson)
 }
 createReport()

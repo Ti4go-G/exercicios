@@ -1,0 +1,37 @@
+[
+  {
+    "ID": 1,
+    "Produto": "Laptop",
+    "Quantidade": 10,
+    "PrecoUnitario": 2500,
+    "Status": "Concluída"
+  },
+  {
+    "ID": 2,
+    "Produto": "Mouse",
+    "Quantidade": 50,
+    "PrecoUnitario": 75.5,
+    "Status": "Concluída"
+  },
+  {
+    "ID": 4,
+    "Produto": "Monitor",
+    "Quantidade": 20,
+    "PrecoUnitario": 950,
+    "Status": "Concluída"
+  },
+  {
+    "ID": 6,
+    "Produto": "Laptop",
+    "Quantidade": 5,
+    "PrecoUnitario": 2450,
+    "Status": "Concluída"
+  },
+  {
+    "ID": 8,
+    "Produto": "Headset",
+    "Quantidade": 25,
+    "PrecoUnitario": 350,
+    "Status": "Concluída"
+  }
+]
