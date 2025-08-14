@@ -1,8 +1,8 @@
-const task = require('../models/taskModel');
+const TaskModel = require('../models/taskModel');
 
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await task.find();
+    const tasks = await TaskModel.find();
     res.json(tasks);
   } catch (error) {
     res.status(500).json({ error: 'Erro ao buscar tarefas' });
@@ -12,7 +12,7 @@ exports.getTasks = async (req, res) => {
 exports.createTask = async (req, res) => {
   const { title, term } = req.body;
   try {
-    const newTask = new task({ title, term });
+    const newTask = new TaskModel({ title, term });
     await newTask.save();
     res.status(201).json(newTask);
   } catch (error) {
@@ -24,7 +24,7 @@ exports.updateTaskById = async (req, res) => {
   const { id } = req.params;
   const { title, term } = req.body;
   try {
-    const task = await task.findByIdAndUpdate(id, { title, term }, { new: true });
+    const task = await TaskModel.findByIdAndUpdate(id, { title, term }, { new: true });
     if (!task) return res.status(404).json({ error: 'Tarefa não encontrada' });
     res.json(task);
   } catch (error) {
@@ -35,7 +35,7 @@ exports.updateTaskById = async (req, res) => {
 exports.deleteTaskById = async (req, res) => {
   const { id } = req.params;
   try {
-    const task = await task.findByIdAndDelete(id);
+    const task = await TaskModel.findByIdAndDelete(id);
     if (!task) return res.status(404).json({ error: 'Tarefa não encontrada' });
     res.status(204).end();
   } catch (error) {
